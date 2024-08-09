@@ -5,6 +5,8 @@ require 'anbt-sql-formatter/formatter'
 module SqlMatchers
   module Matchers
     class Sql
+      QUOTED_IDENT_RE = /[`"](\w+)[`"]/
+
       attr_reader :actual, :expected
 
       def initialize(expected)
@@ -21,7 +23,10 @@ module SqlMatchers
       def diffable? = true
       def matches?(actual)
         @expected = formatter.format(+expected.to_s.strip)
-        @actual   = formatter.format(+actual.to_s.strip)
+                             .gsub(QUOTED_IDENT_RE, '\1')
+
+        @actual = formatter.format(+actual.to_s.strip)
+                           .gsub(QUOTED_IDENT_RE, '\1')
 
         @actual == @expected
       end
