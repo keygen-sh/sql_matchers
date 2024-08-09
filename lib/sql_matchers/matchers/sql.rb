@@ -2,16 +2,17 @@
 
 require 'anbt-sql-formatter/formatter'
 
+require_relative '../normalizers/sql'
+
 module SqlMatchers
   module Matchers
     class Sql
-      QUOTED_IDENT_RE = /[`"](\w+)[`"]/
-
       attr_reader :actual, :expected
 
       def initialize(expected)
-        @expected  = expected
-        @formatter = AnbtSql::Formatter.new(
+        @expected   = expected
+        @normalizer = Normalizers::Sql.new
+        @formatter  = AnbtSql::Formatter.new(
           AnbtSql::Rule.new.tap do |r|
             r.keyword         = AnbtSql::Rule::KEYWORD_UPPER_CASE
             r.function_names += %w[count sum substr date]
@@ -22,11 +23,8 @@ module SqlMatchers
 
       def diffable? = true
       def matches?(actual)
-        @expected = formatter.format(+expected.to_s.strip)
-                             .gsub(QUOTED_IDENT_RE, '\1')
-
-        @actual = formatter.format(+actual.to_s.strip)
-                           .gsub(QUOTED_IDENT_RE, '\1')
+        @expected = formatter.format(normalizer.normalize(expected.to_s.strip))
+        @actual   = formatter.format(normalizer.normalize(actual.to_s.strip))
 
         @actual == @expected
       end
@@ -43,7 +41,7 @@ module SqlMatchers
 
       private
 
-      attr_reader :formatter
+      attr_reader :formatter, :normalizer
     end
   end
 end
