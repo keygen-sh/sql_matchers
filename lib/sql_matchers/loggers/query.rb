@@ -33,7 +33,7 @@ module SqlMatchers
       def logger(event)
         unless IGNORED_STATEMENTS.include?(event.payload[:name]) || IGNORED_STATEMENT_RE.match(event.payload[:sql])
           query = event.payload[:sql].gsub(IGNORED_COMMENT_RE, '')
-                                    .squish
+                                     .squish
 
           @queries << query
         end
