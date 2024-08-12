@@ -25,7 +25,12 @@ RSpec.describe SqlMatchers do
 
   it 'should assert SQL matches' do
     expect(User.where(id: 42).to_sql).to match_sql <<~SQL.squish
-      SELECT "users".* FROM "users" WHERE "users"."id" = 42
+      SELECT
+        users.*
+      FROM
+        users
+      WHERE
+        users.id = 42
     SQL
   end
 end

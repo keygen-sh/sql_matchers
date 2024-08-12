@@ -62,11 +62,11 @@ it 'should assert SQL matches' do
   # match_sql will attempt to normalize formatting to prevent false-negatives
   expect(User.where(id: 42).to_sql).to match_sql <<~SQL.squish
     SELECT
-      "users".*
+      users.*
     FROM
-      "users"
+      users
     WHERE
-      "users"."id" = 42
+      users.id = 42
   SQL
 end
 ```
