@@ -42,7 +42,7 @@ $ gem install sql_matchers
 
 ```ruby
 it 'should assert query count' do
-  expect { User.count }.to match_query(count: 1)
+  expect { User.find_by(id: 1) }.to match_query(count: 1)
 end
 
 it 'should assert query matches' do
@@ -59,8 +59,14 @@ it 'should assert query matches' do
 end
 
 it 'should assert SQL matches' do
+  # match_sql will attempt to normalize formatting to prevent false-negatives
   expect(User.where(id: 42).to_sql).to match_sql <<~SQL.squish
-    SELECT "users".* FROM "users" WHERE "users"."id" = 42
+    SELECT
+      "users".*
+    FROM
+      "users"
+    WHERE
+      "users"."id" = 42
   SQL
 end
 ```
