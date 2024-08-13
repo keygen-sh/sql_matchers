@@ -3,8 +3,7 @@
 [![CI](https://github.com/keygen-sh/sql_matchers/actions/workflows/test.yml/badge.svg)](https://github.com/keygen-sh/sql_matchers/actions)
 [![Gem Version](https://badge.fury.io/rb/sql_matchers.svg)](https://badge.fury.io/rb/sql_matchers)
 
-Use `sql_matchers` to assert number of queries as well as SQL-level assertions
-in RSpec.
+Use `sql_matchers` for query assertions and SQL matchers for RSpec.
 
 This gem was extracted from [Keygen](https://keygen.sh).
 

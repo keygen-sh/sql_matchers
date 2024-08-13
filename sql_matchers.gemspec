@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.version     = SqlMatchers::VERSION
   spec.authors     = ['Zeke Gabrielse']
   spec.email       = ['oss@keygen.sh']
-  spec.summary     = 'Query and SQL matchers for RSpec.'
-  spec.description = 'Query and SQL matchers for RSpec.'
+  spec.summary     = 'Query assertions and SQL matchers for RSpec.'
+  spec.description = 'Query assertions and SQL matchers for RSpec.'
   spec.homepage    = 'https://github.com/keygen-sh/sql_matchers'
   spec.license     = 'MIT'
 
